@@ -267,9 +267,9 @@ Acceso por defecto: `http://localhost:8000`
 
 | Usuario | Contraseña | Rol |
 |---|---|---|
-| admin@edusige.com | Admin2024! | Super Administrador |
-| financiero@edusige.com | Financiero2024! | Recursos Financieros |
-| escolar@edusige.com | Escolar2024! | Control Escolar |
+| admin@edusige.com | *(ver seeder)* | Super Administrador |
+| financiero@edusige.com | *(ver seeder)* | Recursos Financieros |
+| escolar@edusige.com | *(ver seeder)* | Control Escolar |
 
 > Para instalación en servidor Ubuntu, ver [docs/INSTALLATION.md](docs/INSTALLATION.md).
 
