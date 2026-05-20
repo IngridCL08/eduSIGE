@@ -16,7 +16,7 @@
 
     @stack('head')
 </head>
-<body class="h-full bg-carbon-100 font-sans text-carbon-950" x-data="sidebar()">
+<body class="h-full font-sans dark-theme" x-data="sidebar()">
 
     {{-- ═══ SIDEBAR ════════════════════════════════════════════ --}}
     <aside class="sidebar scrollbar-thin" :class="open ? 'translate-x-0' : '-translate-x-full'">

@@ -7,11 +7,11 @@
 /* ─── Base ──────────────────────────────────────────────────── */
 @layer base {
     html {
-        @apply font-sans text-carbon-950 antialiased;
+        @apply font-sans antialiased;
     }
 
     body {
-        @apply bg-carbon-100 min-h-screen;
+        @apply min-h-screen;
     }
 
     h1 { @apply text-2xl font-bold tracking-tight; }
@@ -19,7 +19,7 @@
     h3 { @apply text-lg font-semibold; }
 
     a {
-        @apply text-navy-500 hover:text-navy-700 transition-colors duration-150;
+        @apply transition-colors duration-150;
     }
 }
 
@@ -43,30 +43,37 @@
         @apply px-4 py-2 text-xs font-semibold text-white/40 uppercase tracking-widest mt-4;
     }
 
-    /* Cards */
+    /* Cards — glass dark */
     .card {
-        @apply bg-white rounded-xl shadow-card p-6;
+        @apply rounded-xl p-6;
+        background: rgba(255, 255, 255, 0.07);
+        border: 1px solid rgba(255, 255, 255, 0.11);
+        backdrop-filter: blur(10px);
     }
     .card-header {
-        @apply flex items-center justify-between mb-4 pb-4 border-b border-carbon-100;
+        @apply flex items-center justify-between mb-4 pb-4;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
     .card-title {
-        @apply text-base font-semibold text-carbon-950;
+        @apply text-base font-semibold text-white;
     }
 
     /* Stat cards */
     .stat-card {
-        @apply bg-white rounded-xl shadow-card p-5 flex items-start gap-4
-               hover:shadow-card-hover transition-shadow duration-200;
+        @apply rounded-xl p-5 flex items-start gap-4 transition-shadow duration-200;
+        background: rgba(255, 255, 255, 0.07);
+        border: 1px solid rgba(255, 255, 255, 0.11);
+        backdrop-filter: blur(10px);
     }
     .stat-card-icon {
         @apply w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0;
     }
     .stat-card-value {
-        @apply text-2xl font-bold text-carbon-950;
+        @apply text-2xl font-bold text-white;
     }
     .stat-card-label {
-        @apply text-sm text-carbon-500 mt-0.5;
+        @apply text-sm mt-0.5;
+        color: rgba(255, 255, 255, 0.5);
     }
 
     /* Botones */
@@ -76,118 +83,157 @@
                disabled:opacity-50 disabled:cursor-not-allowed;
     }
     .btn-primary {
-        @apply btn bg-navy-800 text-white hover:bg-navy-950 focus:ring-navy-800;
+        @apply btn bg-navy-600 text-white hover:bg-navy-500 focus:ring-navy-600;
     }
     .btn-secondary {
-        @apply btn bg-carbon-100 text-carbon-700 hover:bg-carbon-200 focus:ring-carbon-300;
+        @apply btn text-white/80 hover:text-white focus:ring-white/30;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+    .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.18);
     }
     .btn-success {
-        @apply btn bg-success text-white hover:bg-green-700 focus:ring-green-500;
+        @apply btn bg-success text-white hover:bg-green-600 focus:ring-green-500;
     }
     .btn-danger {
         @apply btn bg-danger text-white hover:bg-red-700 focus:ring-red-500;
     }
     .btn-warning {
-        @apply btn bg-warning text-white hover:bg-amber-700 focus:ring-amber-500;
+        @apply btn bg-warning text-white hover:bg-amber-600 focus:ring-amber-500;
     }
     .btn-outline {
-        @apply btn border border-navy-800 text-navy-800 hover:bg-navy-800 hover:text-white;
+        @apply btn text-white;
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        background: transparent;
     }
-    .btn-sm {
-        @apply px-3 py-1.5 text-xs;
+    .btn-outline:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.6);
     }
-    .btn-lg {
-        @apply px-6 py-3 text-base;
-    }
-    .btn-icon {
-        @apply btn p-2 aspect-square;
-    }
+    .btn-sm  { @apply px-3 py-1.5 text-xs; }
+    .btn-lg  { @apply px-6 py-3 text-base; }
+    .btn-icon { @apply btn p-2 aspect-square; }
 
-    /* Badges de estado */
+    /* Badges — glass */
     .badge {
         @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
     }
-    .badge-success  { @apply badge bg-green-100 text-green-800; }
-    .badge-warning  { @apply badge bg-amber-100 text-amber-800; }
-    .badge-danger   { @apply badge bg-red-100 text-red-800; }
-    .badge-info     { @apply badge bg-blue-100 text-blue-800; }
-    .badge-neutral  { @apply badge bg-carbon-100 text-carbon-700; }
-    .badge-navy     { @apply badge bg-navy-100 text-navy-800; }
+    .badge-success { @apply badge bg-green-500/20  text-green-300   ring-1 ring-inset ring-green-500/30;  }
+    .badge-warning { @apply badge bg-amber-500/20  text-amber-300   ring-1 ring-inset ring-amber-500/30;  }
+    .badge-danger  { @apply badge bg-red-500/20    text-red-300     ring-1 ring-inset ring-red-500/30;    }
+    .badge-info    { @apply badge bg-blue-500/20   text-blue-300    ring-1 ring-inset ring-blue-500/30;   }
+    .badge-neutral { @apply badge bg-white/10      text-white/60    ring-1 ring-inset ring-white/20;      }
+    .badge-navy    { @apply badge bg-navy-500/25   text-navy-200    ring-1 ring-inset ring-navy-400/30;   }
 
     /* Formularios */
     .form-label {
-        @apply block text-sm font-medium text-carbon-700 mb-1;
+        @apply block text-sm font-medium mb-1;
+        color: rgba(255, 255, 255, 0.75);
     }
     .form-input {
-        @apply block w-full rounded-lg border-carbon-300 shadow-sm text-sm
-               focus:border-navy-500 focus:ring-navy-500
-               disabled:bg-carbon-50 disabled:text-carbon-500;
+        @apply block w-full rounded-lg text-sm;
+        background: rgba(255, 255, 255, 0.08) !important;
+        border: 1px solid rgba(255, 255, 255, 0.18) !important;
+        color: white !important;
+        box-shadow: none !important;
+    }
+    .form-input:focus {
+        background: rgba(255, 255, 255, 0.12) !important;
+        border-color: #5E2DEE !important;
+        box-shadow: 0 0 0 3px rgba(94, 45, 238, 0.3) !important;
+        outline: none !important;
+    }
+    .form-input::placeholder {
+        color: rgba(255, 255, 255, 0.3) !important;
+    }
+    .form-input:disabled {
+        background: rgba(255, 255, 255, 0.04) !important;
+        color: rgba(255, 255, 255, 0.3) !important;
+        cursor: not-allowed;
     }
     .form-select {
         @apply form-input pr-10;
     }
+    .form-select option {
+        background: #1e0b6a;
+        color: white;
+    }
     .form-error {
-        @apply text-xs text-danger mt-1;
+        @apply text-xs mt-1;
+        color: #fca5a5;
     }
     .form-help {
-        @apply text-xs text-carbon-400 mt-1;
+        @apply text-xs mt-1;
+        color: rgba(255, 255, 255, 0.4);
     }
 
     /* Tablas */
     .table-wrapper {
-        @apply overflow-x-auto rounded-xl border border-carbon-200;
+        @apply overflow-x-auto rounded-xl;
+        border: 1px solid rgba(255, 255, 255, 0.11);
     }
     .data-table {
-        @apply min-w-full divide-y divide-carbon-200;
+        @apply min-w-full;
     }
     .data-table thead {
-        @apply bg-carbon-50;
+        background: rgba(255, 255, 255, 0.07);
     }
     .data-table thead th {
-        @apply px-4 py-3 text-left text-xs font-semibold text-carbon-600 uppercase tracking-wider;
+        @apply px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider;
+        color: rgba(255, 255, 255, 0.45);
     }
     .data-table tbody {
-        @apply bg-white divide-y divide-carbon-100;
+        background: transparent;
     }
     .data-table tbody td {
-        @apply px-4 py-3 text-sm text-carbon-700 whitespace-nowrap;
+        @apply px-4 py-3 text-sm whitespace-nowrap;
+        color: rgba(255, 255, 255, 0.8);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
-    .data-table tbody tr {
-        @apply hover:bg-carbon-50 transition-colors duration-100;
+    .data-table tbody tr:hover {
+        background: rgba(255, 255, 255, 0.05);
     }
 
     /* Alertas */
     .alert {
         @apply flex items-start gap-3 p-4 rounded-lg text-sm;
     }
-    .alert-success { @apply alert bg-green-50 text-green-800 border border-green-200; }
-    .alert-warning { @apply alert bg-amber-50 text-amber-800 border border-amber-200; }
-    .alert-danger  { @apply alert bg-red-50 text-red-800 border border-red-200; }
-    .alert-info    { @apply alert bg-blue-50 text-blue-800 border border-blue-200; }
+    .alert-success { @apply alert; background: rgba(22,163,74,0.18);  border: 1px solid rgba(22,163,74,0.35);  color: #86efac; }
+    .alert-warning { @apply alert; background: rgba(217,119,6,0.18);  border: 1px solid rgba(217,119,6,0.35);  color: #fcd34d; }
+    .alert-danger  { @apply alert; background: rgba(220,38,38,0.18);  border: 1px solid rgba(220,38,38,0.35);  color: #fca5a5; }
+    .alert-info    { @apply alert; background: rgba(2,132,199,0.18);  border: 1px solid rgba(2,132,199,0.35);  color: #7dd3fc; }
 
     /* Modal */
     .modal-backdrop {
-        @apply fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4;
+        @apply fixed inset-0 z-50 flex items-center justify-center p-4;
+        background: rgba(0, 0, 0, 0.65);
     }
     .modal-content {
-        @apply bg-white rounded-2xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto;
+        @apply rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto;
+        background: rgba(28, 10, 95, 0.97);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(20px);
     }
     .modal-header {
-        @apply flex items-center justify-between p-6 border-b border-carbon-100;
+        @apply flex items-center justify-between p-6;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
     .modal-body {
         @apply p-6;
     }
     .modal-footer {
-        @apply flex items-center justify-end gap-3 p-6 border-t border-carbon-100;
+        @apply flex items-center justify-end gap-3 p-6;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     /* Breadcrumb */
     .breadcrumb {
-        @apply flex items-center gap-2 text-sm text-carbon-500;
+        @apply flex items-center gap-2 text-sm;
+        color: rgba(255, 255, 255, 0.55);
     }
     .breadcrumb-separator {
-        @apply text-carbon-300;
+        color: rgba(255, 255, 255, 0.3);
     }
 
     /* Page header */
@@ -195,12 +241,80 @@
         @apply flex items-center justify-between mb-6;
     }
     .page-title {
-        @apply text-xl font-bold text-carbon-950;
+        @apply text-xl font-bold text-white;
     }
     .page-subtitle {
-        @apply text-sm text-carbon-500 mt-0.5;
+        @apply text-sm mt-0.5;
+        color: rgba(255, 255, 255, 0.55);
     }
 }
+
+/* ─── Tema oscuro — aplicado por .dark-theme en el body del staff layout ─── */
+.dark-theme {
+    background: linear-gradient(135deg, #180848 0%, #2d1590 35%, #4219bf 70%, #5E2DEE 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    color: white;
+}
+
+/* Colores neutros → legibles en fondo oscuro */
+.dark-theme .text-carbon-950,
+.dark-theme .text-carbon-900,
+.dark-theme .text-carbon-800,
+.dark-theme .text-carbon-700,
+.dark-theme .text-carbon-600 { color: rgba(255, 255, 255, 0.85); }
+.dark-theme .text-carbon-500,
+.dark-theme .text-carbon-400 { color: rgba(255, 255, 255, 0.5);  }
+.dark-theme .text-carbon-300 { color: rgba(255, 255, 255, 0.35); }
+
+/* Colores semánticos → versiones claras para fondo oscuro */
+.dark-theme .text-green-700,
+.dark-theme .text-green-800   { color: #4ade80; }
+.dark-theme .text-amber-700,
+.dark-theme .text-amber-800   { color: #fbbf24; }
+.dark-theme .text-red-700,
+.dark-theme .text-red-800     { color: #f87171; }
+.dark-theme .text-blue-700,
+.dark-theme .text-blue-800    { color: #60a5fa; }
+.dark-theme .text-emerald-700,
+.dark-theme .text-emerald-800 { color: #34d399; }
+.dark-theme .text-navy-800,
+.dark-theme .text-navy-700    { color: #a47dfc; }
+.dark-theme .text-navy-500    { color: #a47dfc; }
+
+/* Fondos carbon → vidrio translúcido */
+.dark-theme .bg-carbon-50  { background-color: rgba(255, 255, 255, 0.05) !important; }
+.dark-theme .bg-carbon-100 { background-color: rgba(255, 255, 255, 0.08) !important; }
+.dark-theme .bg-carbon-200 { background-color: rgba(255, 255, 255, 0.13) !important; }
+.dark-theme .bg-carbon-300 { background-color: rgba(255, 255, 255, 0.18) !important; }
+
+/* Bordes carbon → translúcidos */
+.dark-theme .border-carbon-100 { border-color: rgba(255, 255, 255, 0.08);  }
+.dark-theme .border-carbon-200 { border-color: rgba(255, 255, 255, 0.14);  }
+.dark-theme .border-carbon-300 { border-color: rgba(255, 255, 255, 0.22);  }
+.dark-theme .hover\:border-carbon-400:hover { border-color: rgba(255, 255, 255, 0.35); }
+
+/* Fondos de iconos en KPI cards → mantener color pero ajustar opacity */
+.dark-theme .bg-navy-100    { background-color: rgba(164, 125, 252, 0.25) !important; }
+.dark-theme .bg-green-100   { background-color: rgba(74, 222, 128, 0.2)   !important; }
+.dark-theme .bg-amber-100   { background-color: rgba(251, 191, 36, 0.2)   !important; }
+.dark-theme .bg-red-100     { background-color: rgba(248, 113, 113, 0.2)  !important; }
+.dark-theme .bg-blue-100    { background-color: rgba(96, 165, 250, 0.2)   !important; }
+.dark-theme .bg-emerald-100 { background-color: rgba(52, 211, 153, 0.2)   !important; }
+
+/* Tarjetas de acciones rápidas en dashboards */
+.dark-theme .bg-navy-50     { background-color: rgba(164, 125, 252, 0.12) !important; }
+.dark-theme .bg-green-50    { background-color: rgba(74, 222, 128, 0.1)   !important; }
+.dark-theme .bg-amber-50    { background-color: rgba(251, 191, 36, 0.1)   !important; }
+.dark-theme .bg-navy-200    { background-color: rgba(164, 125, 252, 0.3)  !important; }
+.dark-theme .bg-green-200   { background-color: rgba(74, 222, 128, 0.25)  !important; }
+.dark-theme .bg-amber-200   { background-color: rgba(251, 191, 36, 0.25)  !important; }
+.dark-theme .border-navy-200  { border-color: rgba(164, 125, 252, 0.4); }
+.dark-theme .border-green-200 { border-color: rgba(74, 222, 128, 0.3);  }
+.dark-theme .border-amber-200 { border-color: rgba(251, 191, 36, 0.3);  }
+.dark-theme .hover\:border-navy-400:hover  { border-color: rgba(164, 125, 252, 0.7); }
+.dark-theme .hover\:border-green-400:hover { border-color: rgba(74, 222, 128, 0.6);  }
+.dark-theme .hover\:border-amber-400:hover { border-color: rgba(251, 191, 36, 0.6);  }
 
 /* ─── Utilidades personalizadas ─────────────────────────────── */
 @layer utilities {
@@ -209,7 +323,7 @@
     }
     .scrollbar-thin {
         scrollbar-width: thin;
-        scrollbar-color: #cbd5e1 transparent;
+        scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
     }
     .scrollbar-thin::-webkit-scrollbar {
         width: 6px;
@@ -218,7 +332,7 @@
         background: transparent;
     }
     .scrollbar-thin::-webkit-scrollbar-thumb {
-        background-color: #cbd5e1;
+        background-color: rgba(255, 255, 255, 0.2);
         border-radius: 3px;
     }
 }
