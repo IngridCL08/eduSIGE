@@ -5,6 +5,7 @@ use App\Http\Controllers\Financiero\FichaPagoController;
 use App\Http\Controllers\Financiero\AspiranteFinancieroController;
 use App\Http\Controllers\Financiero\ReporteController;
 use App\Http\Controllers\Financiero\PasarelaController;
+use App\Http\Controllers\Financiero\ComprobanteController;
 use Illuminate\Support\Facades\Route;
 
 // Dashboard financiero
@@ -26,6 +27,13 @@ Route::post('/aspirantes/{aspirante}/generar-ficha', [AspiranteFinancieroControl
 Route::post('/pago/iniciar/{ficha}', [PasarelaController::class, 'iniciarPago'])->name('pago.iniciar');
 Route::get('/pago/exitoso',          [PasarelaController::class, 'pagoExitoso'])->name('pago.exitoso');
 Route::get('/pago/cancelado',        [PasarelaController::class, 'pagoCancelado'])->name('pago.cancelado');
+
+// Comprobantes de transferencia bancaria
+Route::prefix('comprobantes')->name('comprobantes.')->group(function () {
+    Route::get('/',                         [ComprobanteController::class, 'index'])->name('index');
+    Route::patch('/{comprobante}/aprobar',  [ComprobanteController::class, 'aprobar'])->name('aprobar');
+    Route::patch('/{comprobante}/rechazar', [ComprobanteController::class, 'rechazar'])->name('rechazar');
+});
 
 // Reportes
 Route::prefix('reportes')->name('reportes.')->group(function () {

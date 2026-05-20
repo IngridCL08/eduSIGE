@@ -124,26 +124,6 @@
             </div>
         </div>
 
-        {{-- Iniciar pago en línea --}}
-        <div class="card" x-data>
-            <div class="card-header"><h3 class="card-title">Pago en Línea</h3></div>
-            <div class="grid grid-cols-2 gap-3">
-                <form method="POST" action="{{ route('financiero.pago.iniciar', $ficha) }}">
-                    @csrf
-                    <input type="hidden" name="gateway" value="conekta">
-                    <button class="btn-primary w-full justify-center">
-                        Pagar con Conekta
-                    </button>
-                </form>
-                <form method="POST" action="{{ route('financiero.pago.iniciar', $ficha) }}">
-                    @csrf
-                    <input type="hidden" name="gateway" value="paypal">
-                    <button class="btn-outline w-full justify-center">
-                        Pagar con PayPal
-                    </button>
-                </form>
-            </div>
-        </div>
         @endif
 
         {{-- Cancelar ficha --}}
@@ -153,6 +133,77 @@
                 @csrf @method('PATCH')
                 <button class="btn-danger btn-sm">Cancelar Ficha</button>
             </form>
+        </div>
+        @endif
+
+        {{-- Comprobantes de transferencia --}}
+        @if($ficha->comprobantes->isNotEmpty())
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Comprobantes de Transferencia</h3>
+                <span class="badge badge-info">{{ $ficha->comprobantes->where('status', 'pendiente')->count() }} pendiente(s)</span>
+            </div>
+            <div class="space-y-3">
+                @foreach($ficha->comprobantes as $comp)
+                <div class="flex items-start justify-between p-3 rounded-lg border border-carbon-100 bg-carbon-50">
+                    <div class="flex-1 min-w-0 mr-4">
+                        <a href="{{ $comp->url }}" target="_blank"
+                           class="text-sm font-medium hover:underline truncate block"
+                           style="color: #5b35c0">
+                            {{ $comp->nombre_original ?? 'Ver comprobante' }}
+                        </a>
+                        <p class="text-xs text-carbon-400 mt-0.5">
+                            Enviado el {{ $comp->created_at->format('d/m/Y H:i') }}
+                        </p>
+                        @if($comp->observaciones && $comp->status === 'rechazado')
+                        <p class="text-xs text-red-500 mt-1">Motivo: {{ $comp->observaciones }}</p>
+                        @endif
+                    </div>
+                    <div class="flex items-center gap-2 flex-shrink-0">
+                        <span class="badge {{ $comp->status_color }}">{{ $comp->status_nombre }}</span>
+                        @if($comp->status === 'pendiente')
+                        <div x-data="{ open: false }">
+                            <div class="flex gap-1">
+                                <form method="POST" action="{{ route('financiero.comprobantes.aprobar', $comp) }}">
+                                    @csrf @method('PATCH')
+                                    <button class="btn-success btn-sm"
+                                            onclick="return confirm('¿Aprobar y marcar ficha como pagada?')">
+                                        Aprobar
+                                    </button>
+                                </form>
+                                <button @click="open = !open" class="btn-danger btn-sm">Rechazar</button>
+                            </div>
+
+                            <div x-show="open" x-cloak
+                                 class="fixed inset-0 bg-black/40 flex items-center justify-center z-50"
+                                 @keydown.escape.window="open = false">
+                                <div class="bg-white rounded-xl p-6 w-full max-w-md shadow-xl" @click.stop>
+                                    <h3 class="font-semibold text-carbon-900 mb-3">Rechazar comprobante</h3>
+                                    <form method="POST"
+                                          action="{{ route('financiero.comprobantes.rechazar', $comp) }}">
+                                        @csrf @method('PATCH')
+                                        <div class="mb-4">
+                                            <label class="form-label">
+                                                Motivo <span class="text-danger">*</span>
+                                            </label>
+                                            <textarea name="observaciones" rows="3" class="form-input"
+                                                      placeholder="Motivo para el aspirante…" required></textarea>
+                                        </div>
+                                        <div class="flex justify-end gap-2">
+                                            <button type="button" @click="open = false" class="btn-secondary btn-sm">
+                                                Cancelar
+                                            </button>
+                                            <button type="submit" class="btn-danger btn-sm">Confirmar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                    </div>
+                </div>
+                @endforeach
+            </div>
         </div>
         @endif
 

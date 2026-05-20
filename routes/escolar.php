@@ -6,7 +6,6 @@ use App\Http\Controllers\Escolar\AlumnoController;
 use App\Http\Controllers\Escolar\DocumentoController;
 use App\Http\Controllers\Escolar\EstadisticaController;
 use App\Http\Controllers\Escolar\ExamenAdmisionController;
-use App\Http\Controllers\Escolar\ComprobanteController;
 use App\Http\Controllers\Escolar\InscripcionController;
 use Illuminate\Support\Facades\Route;
 
@@ -48,13 +47,6 @@ Route::prefix('examenes')->name('examenes.')->group(function () {
     Route::post('/{aspirante}',                  [ExamenAdmisionController::class, 'store'])->name('store');
     Route::get('/{examen}/editar',               [ExamenAdmisionController::class, 'edit'])->name('edit');
     Route::put('/{examen}',                      [ExamenAdmisionController::class, 'update'])->name('update');
-});
-
-// Comprobantes de transferencia
-Route::prefix('comprobantes')->name('comprobantes.')->group(function () {
-    Route::get('/',                              [ComprobanteController::class, 'index'])->name('index');
-    Route::patch('/{comprobante}/aprobar',       [ComprobanteController::class, 'aprobar'])->name('aprobar');
-    Route::patch('/{comprobante}/rechazar',      [ComprobanteController::class, 'rechazar'])->name('rechazar');
 });
 
 // Inscripción de aspirantes admitidos

@@ -78,6 +78,11 @@ class FichaPago extends Model
         return $this->hasMany(Transaccion::class);
     }
 
+    public function comprobantes(): HasMany
+    {
+        return $this->hasMany(ComprobanteTransferencia::class);
+    }
+
     // ─── Accessors ────────────────────────────────────────────
 
     public function getStatusNombreAttribute(): string
