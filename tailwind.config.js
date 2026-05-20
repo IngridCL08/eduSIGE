@@ -9,19 +9,19 @@ export default {
     theme: {
         extend: {
             colors: {
-                // Paleta principal eduSIGE — Azul Marino y Negro
+                // Paleta principal eduSIGE — Violeta #5b35c0
                 navy: {
-                    50:  '#eef2ff',
-                    100: '#e0e7ff',
-                    200: '#c7d2fe',
-                    300: '#a5b4fc',
-                    400: '#818cf8',
-                    500: '#3B82F6',  // azul activo / links
-                    600: '#2563eb',
-                    700: '#1d4ed8',
-                    800: '#1E3A5F',  // azul medio / botones
-                    900: '#1e3a8a',
-                    950: '#0F172A',  // azul marino oscuro / sidebar
+                    50:  '#f3eeff',
+                    100: '#e8e0fd',
+                    200: '#d3c5fb',
+                    300: '#b59ef7',
+                    400: '#966ef2',
+                    500: '#7c4ded',  // links / focus rings
+                    600: '#6b3dd8',
+                    700: '#5b35c0',  // color base de la marca
+                    800: '#4a2aa8',  // botones primarios
+                    900: '#3a2185',
+                    950: '#261566',  // sidebar oscuro
                 },
                 carbon: {
                     50:  '#f8fafc',
