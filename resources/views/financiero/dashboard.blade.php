@@ -181,16 +181,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Gráfica de ingresos por mes
     const ingresosData = @json($ingresosMes);
     new ApexCharts(document.getElementById('chart-ingresos'), {
-        chart: { type: 'area', height: 250, toolbar: { show: false }, fontFamily: 'Inter, sans-serif', foreColor: 'rgba(255,255,255,0.5)', background: 'transparent' },
+        chart: { type: 'area', height: 250, toolbar: { show: false }, fontFamily: 'Inter, sans-serif' },
         series: [{ name: 'Ingresos MXN', data: ingresosData.totales }],
         xaxis: { categories: ingresosData.meses },
-        colors: ['#a47dfc'],
+        colors: ['#5E2DEE'],
         stroke: { curve: 'smooth', width: 2 },
-        fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.4, opacityTo: 0.05, colorStops: [{ offset: 0, color: '#a47dfc', opacity: 0.4 }, { offset: 100, color: '#a47dfc', opacity: 0 }] } },
+        fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.3, opacityTo: 0.03 } },
         dataLabels: { enabled: false },
-        grid: { borderColor: 'rgba(255,255,255,0.08)', strokeDashArray: 4 },
-        yaxis: { labels: { formatter: (v) => '$' + v.toLocaleString('es-MX'), style: { colors: 'rgba(255,255,255,0.5)' } } },
-        tooltip: { theme: 'dark', y: { formatter: (v) => '$' + v.toLocaleString('es-MX', { minimumFractionDigits: 2 }) } },
+        grid: { borderColor: '#e2e8f0', strokeDashArray: 4 },
+        yaxis: { labels: { formatter: (v) => '$' + v.toLocaleString('es-MX') } },
+        tooltip: { y: { formatter: (v) => '$' + v.toLocaleString('es-MX', { minimumFractionDigits: 2 }) } },
     }).render();
 
     // Gráfica de método de pago (solo si hay datos)
@@ -200,14 +200,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (metodoValues.reduce((a, b) => a + b, 0) > 0) {
         new ApexCharts(document.getElementById('chart-metodo'), {
-            chart: { type: 'donut', height: 250, fontFamily: 'Inter, sans-serif', foreColor: 'rgba(255,255,255,0.5)', background: 'transparent' },
+            chart: { type: 'donut', height: 250, fontFamily: 'Inter, sans-serif' },
             series: metodoValues,
             labels: metodoLabels,
-            colors: ['#a47dfc', '#60a5fa', '#4ade80', '#fbbf24', '#94a3b8'],
-            legend: { position: 'bottom', fontFamily: 'Inter, sans-serif', fontSize: '12px', labels: { colors: 'rgba(255,255,255,0.6)' } },
+            colors: ['#5E2DEE', '#3B82F6', '#16a34a', '#d97706', '#64748b'],
+            legend: { position: 'bottom', fontFamily: 'Inter, sans-serif', fontSize: '12px' },
             dataLabels: { formatter: (v) => v.toFixed(1) + '%' },
             plotOptions: { pie: { donut: { size: '60%' } } },
-            tooltip: { theme: 'dark' },
         }).render();
     }
 });

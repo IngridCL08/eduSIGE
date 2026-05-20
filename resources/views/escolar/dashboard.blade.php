@@ -155,25 +155,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const sexoData    = @json($porSexo);
 
     new ApexCharts(document.getElementById('chart-carrera'), {
-        chart: { type: 'bar', height: 260, toolbar: { show: false }, fontFamily: 'Inter, sans-serif', foreColor: 'rgba(255,255,255,0.5)', background: 'transparent' },
+        chart: { type: 'bar', height: 260, toolbar: { show: false }, fontFamily: 'Inter, sans-serif' },
         series: [{ name: 'Aspirantes', data: carreraData.totales }],
-        xaxis: { categories: carreraData.carreras, labels: { style: { colors: Array(carreraData.carreras.length).fill('rgba(255,255,255,0.5)') } } },
-        colors: ['#a47dfc'],
+        xaxis: { categories: carreraData.carreras },
+        colors: ['#5E2DEE'],
         plotOptions: { bar: { borderRadius: 5, columnWidth: '55%' } },
         dataLabels: { enabled: false },
-        grid: { borderColor: 'rgba(255,255,255,0.08)', strokeDashArray: 4 },
-        tooltip: { theme: 'dark' },
+        grid: { borderColor: '#e2e8f0', strokeDashArray: 4 },
     }).render();
 
     new ApexCharts(document.getElementById('chart-sexo'), {
-        chart: { type: 'donut', height: 260, fontFamily: 'Inter, sans-serif', foreColor: 'rgba(255,255,255,0.5)', background: 'transparent' },
+        chart: { type: 'donut', height: 260, fontFamily: 'Inter, sans-serif' },
         series: [sexoData.M, sexoData.F, sexoData.O],
         labels: ['Masculino', 'Femenino', 'Otro'],
-        colors: ['#a47dfc', '#60a5fa', '#94a3b8'],
-        legend: { position: 'bottom', fontFamily: 'Inter, sans-serif', fontSize: '12px', labels: { colors: 'rgba(255,255,255,0.6)' } },
+        colors: ['#5E2DEE', '#3B82F6', '#64748b'],
+        legend: { position: 'bottom', fontFamily: 'Inter, sans-serif', fontSize: '12px' },
         dataLabels: { formatter: (v) => v.toFixed(1) + '%' },
         plotOptions: { pie: { donut: { size: '60%' } } },
-        tooltip: { theme: 'dark' },
     }).render();
 });
 </script>
