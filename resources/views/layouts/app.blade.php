@@ -81,7 +81,7 @@
 
         {{-- Topbar --}}
         <header class="sticky top-0 z-40 shadow-sm border-b border-white/10"
-                style="background: linear-gradient(135deg, #4a1fd6 0%, #5E2DEE 60%, #7040f2 100%)">
+                style="background: linear-gradient(135deg, #1a0960 0%, #2d1590 60%, #4219bf 100%)">
             <div class="flex items-center gap-4 px-6 h-14">
 
                 {{-- Toggle sidebar --}}
