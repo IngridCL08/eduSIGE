@@ -11,6 +11,7 @@ use App\Http\Controllers\Escolar\PeriodoController;
 use App\Http\Controllers\Escolar\MateriaController;
 use App\Http\Controllers\Escolar\AdeudoController;
 use App\Http\Controllers\Escolar\CalendarioReinscripcionController;
+use App\Http\Controllers\Escolar\ConstanciaController;
 use Illuminate\Support\Facades\Route;
 
 // Dashboard escolar
@@ -83,6 +84,14 @@ Route::prefix('calendario')->name('calendario.')->group(function () {
     Route::put('/{calendario}',                         [CalendarioReinscripcionController::class, 'update'])->name('update');
     Route::patch('/{calendario}/toggle',                [CalendarioReinscripcionController::class, 'toggle'])->name('toggle');
     Route::delete('/{calendario}',                      [CalendarioReinscripcionController::class, 'destroy'])->name('destroy');
+});
+
+// Constancias y documentos PDF
+Route::prefix('constancias')->name('constancias.')->group(function () {
+    Route::get('/',                                    [ConstanciaController::class, 'index'])->name('index');
+    Route::get('/{alumno}/estudios',                   [ConstanciaController::class, 'estudios'])->name('estudios');
+    Route::get('/{alumno}/kardex',                     [ConstanciaController::class, 'kardex'])->name('kardex');
+    Route::get('/{alumno}/boleta/{periodo}',           [ConstanciaController::class, 'boleta'])->name('boleta');
 });
 
 // Estadísticas escolares

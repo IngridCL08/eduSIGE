@@ -75,11 +75,18 @@ class EstadisticaController extends Controller
         $acreditadas      = HistorialAcademico::where('status', 'acreditada')->count();
         $tasaAcreditacion = $totalMaterias > 0 ? round($acreditadas / $totalMaterias * 100, 1) : null;
 
+        // Alumnos en riesgo (promedio < 7.0, activos)
+        $enRiesgo = Alumno::where('status', 'activo')
+            ->whereNotNull('promedio_general')
+            ->where('promedio_general', '<', 7.0)
+            ->count();
+
         $resumen = [
             'total_alumnos'    => $total,
             'activos'          => $activos,
             'bajas'            => $bajas,
             'egresados'        => $egresados,
+            'en_riesgo'        => $enRiesgo,
             'promedio_general' => $promedioGeneral,
             'creditos_promedio'=> $creditosPromedio,
             'tasa_acreditacion'=> $tasaAcreditacion,
@@ -104,8 +111,34 @@ class EstadisticaController extends Controller
             ->pluck('promedio', 'carreras.clave')
             ->toArray();
 
+        // Por semestre (activos)
+        $porSemestre = Alumno::where('status', 'activo')
+            ->selectRaw('semestre_actual, COUNT(*) as total')
+            ->groupBy('semestre_actual')
+            ->orderBy('semestre_actual')
+            ->pluck('total', 'semestre_actual')
+            ->toArray();
+
+        // Por género (via aspirante)
+        $porGenero = Alumno::join('aspirantes', 'alumnos.aspirante_id', '=', 'aspirantes.id')
+            ->where('alumnos.status', 'activo')
+            ->selectRaw('aspirantes.sexo, COUNT(*) as total')
+            ->groupBy('aspirantes.sexo')
+            ->pluck('total', 'aspirantes.sexo')
+            ->toArray();
+
+        // Alumnos en riesgo académico (promedio < 7.0)
+        $alumnosEnRiesgo = Alumno::with(['aspirante', 'carrera'])
+            ->where('status', 'activo')
+            ->whereNotNull('promedio_general')
+            ->where('promedio_general', '<', 7.0)
+            ->orderBy('promedio_general')
+            ->limit(10)
+            ->get();
+
         return view('escolar.estadisticas.alumnos', compact(
-            'resumen', 'porCarrera', 'porEstatus', 'promedioPorCarrera'
+            'resumen', 'porCarrera', 'porEstatus', 'promedioPorCarrera',
+            'porSemestre', 'porGenero', 'alumnosEnRiesgo'
         ));
     }
 
