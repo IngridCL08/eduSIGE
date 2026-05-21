@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Adeudo extends Model
 {
     protected $fillable = [
-        'alumno_id', 'periodo_id', 'concepto', 'monto',
-        'fecha_vencimiento', 'status', 'fecha_pago', 'referencia_pago',
+        'alumno_id', 'periodo_id', 'tipo', 'concepto', 'descripcion', 'monto',
+        'fecha_vencimiento', 'status', 'fecha_pago', 'referencia_pago', 'registrado_por_nombre',
     ];
 
     protected function casts(): array

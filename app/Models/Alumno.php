@@ -16,6 +16,7 @@ class Alumno extends Model implements AuthenticatableContract
 
     protected $fillable = [
         'aspirante_id', 'matricula', 'carrera_id', 'periodo_ingreso_id',
+        'semestre_actual', 'turno',
         'status', 'promedio_general', 'creditos_acumulados', 'observaciones',
         'password', 'remember_token', 'must_change_password',
     ];
@@ -170,8 +171,19 @@ class Alumno extends Model implements AuthenticatableContract
         $this->update(['promedio_general' => $promedio]);
     }
 
+    public function reinscripciones(): HasMany
+    {
+        return $this->hasMany(Reinscripcion::class, 'alumno_id');
+    }
+
     public function tieneAdeudosPendientes(): bool
     {
         return $this->adeudos()->where('status', 'pendiente')->exists();
+    }
+
+    public function getSemestreRomanoAttribute(): string
+    {
+        $romanos = ['I','II','III','IV','V','VI','VII','VIII','IX','X'];
+        return $romanos[($this->semestre_actual ?? 1) - 1] ?? (string) $this->semestre_actual;
     }
 }
