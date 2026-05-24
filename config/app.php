@@ -23,7 +23,11 @@ return [
 
     // Configuración personalizada de eduSIGE
     'edusige' => [
-        'institucion'         => env('EDUSIGE_INSTITUCION', 'Tecnm Pinotepa'),
+        'institucion'         => env('EDUSIGE_INSTITUCION', 'TecNM Pinotepa'),
+        'campus'              => env('EDUSIGE_CAMPUS', 'Campus Pinotepa'),
+        'ubicacion'           => env('EDUSIGE_UBICACION', 'Pinotepa Nacional, Oaxaca'),
+        'depto_escolar'       => env('EDUSIGE_DEPTO_ESCOLAR', 'Departamento de Servicios Escolares'),
+        'depto_financiero'    => env('EDUSIGE_DEPTO_FINANCIERO', 'Departamento de Recursos Financieros'),
         'monto_ficha'         => (float) env('EDUSIGE_MONTO_FICHA', 500.00),
         'dias_vigencia_ficha' => (int) env('EDUSIGE_DIAS_VIGENCIA_FICHA', 5),
         'logo'                => env('EDUSIGE_LOGO', null),

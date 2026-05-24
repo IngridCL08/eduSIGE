@@ -29,8 +29,8 @@
 
 <div class="header">
   <h1>Tecnológico Nacional de México</h1>
-  <h2>{{ config('app.name') }}</h2>
-  <p>Servicios Escolares</p>
+  <h2>{{ config('app.edusige.campus') }}</h2>
+  <p>Departamento de Servicios Escolares</p>
 </div>
 
 <div class="folio">Folio: CE-{{ strtoupper($alumno->matricula) }}-{{ date('Ymd') }}</div>
@@ -40,7 +40,7 @@
 </div>
 
 <p class="body-text">
-  El que suscribe, Jefe del Departamento de Servicios Escolares del Tecnológico Nacional de México,
+  El que suscribe, Jefe del Departamento de Servicios Escolares del {{ config('app.edusige.campus') }},
   hace constar que <strong>{{ strtoupper($alumno->nombre_completo) }}</strong>, con número de matrícula
   <strong>{{ $alumno->matricula }}</strong>, se encuentra cursando estudios de nivel <strong>Licenciatura</strong>
   en la carrera de <strong>{{ $alumno->carrera->nombre ?? 'N/D' }}</strong> (clave {{ $alumno->carrera->clave ?? '' }}),
@@ -85,8 +85,8 @@
     <td width="50%">
       <div class="firma">
         <div class="linea">
-          <strong>Jefe de Servicios Escolares</strong><br>
-          Tecnológico Nacional de México
+          <strong>Jefe del Depto. de Servicios Escolares</strong><br>
+          {{ config('app.edusige.campus') }}
         </div>
       </div>
     </td>
@@ -94,7 +94,7 @@
       <div style="font-size:8pt; color:#aaa;">
         Documento generado electrónicamente<br>
         {{ \Carbon\Carbon::now()->format('d/m/Y H:i:s') }}<br>
-        {{ config('app.name') }} · Servicios Escolares
+        {{ config('app.edusige.campus') }} · Depto. de Servicios Escolares
       </div>
     </td>
   </tr></table>

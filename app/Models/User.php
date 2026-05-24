@@ -65,8 +65,8 @@ class User extends Authenticatable
     {
         return match ($this->roles->first()?->name) {
             'admin'      => 'Super Administrador',
-            'financiero' => 'Recursos Financieros',
-            'escolar'    => 'Control Escolar',
+            'financiero' => 'Depto. de Recursos Financieros',
+            'escolar'    => 'Depto. de Servicios Escolares',
             default      => 'Sin rol',
         };
     }

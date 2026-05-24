@@ -63,7 +63,7 @@
 </div>
 
 <p class="text-xs text-slate-400 mt-4">
-    Para entregar o reemplazar documentos, acude a la ventanilla de Control Escolar.
+    Para entregar o reemplazar documentos, acude al Departamento de Servicios Escolares.
 </p>
 
 @endsection

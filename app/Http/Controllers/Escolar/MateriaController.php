@@ -42,7 +42,7 @@ class MateriaController extends Controller
             'creditos'         => ['required', 'integer', 'min:1', 'max:20'],
             'horas_teoria'     => ['required', 'integer', 'min:0'],
             'horas_practica'   => ['required', 'integer', 'min:0'],
-            'semestre_sugerido'=> ['nullable', 'integer', 'min:1', 'max:9'],
+            'semestre_sugerido'=> ['nullable', 'integer', 'min:1', 'max:8'],
         ]);
 
         Materia::create($data);
@@ -71,7 +71,7 @@ class MateriaController extends Controller
             'creditos'         => ['required', 'integer', 'min:1', 'max:20'],
             'horas_teoria'     => ['required', 'integer', 'min:0'],
             'horas_practica'   => ['required', 'integer', 'min:0'],
-            'semestre_sugerido'=> ['nullable', 'integer', 'min:1', 'max:9'],
+            'semestre_sugerido'=> ['nullable', 'integer', 'min:1', 'max:8'],
             'activa'           => ['boolean'],
         ]);
 

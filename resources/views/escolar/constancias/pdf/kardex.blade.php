@@ -37,7 +37,7 @@
 
 <div class="header">
   <h1>Tecnológico Nacional de México</h1>
-  <h2>{{ config('app.name') }} · Servicios Escolares</h2>
+  <h2>{{ config('app.edusige.campus') }} · Departamento de Servicios Escolares</h2>
 </div>
 
 <div class="doc-title"><h3>Kárdex Académico</h3></div>
@@ -113,7 +113,7 @@
 
 <div class="footer">
   Documento generado el {{ \Carbon\Carbon::now()->format('d/m/Y H:i:s') }} —
-  {{ config('app.name') }} · Servicios Escolares · Este documento es de uso oficial.
+  {{ config('app.edusige.campus') }} · Depto. de Servicios Escolares · Este documento es de uso oficial.
 </div>
 
 </body>
