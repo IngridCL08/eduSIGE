@@ -35,7 +35,7 @@ class CalendarioReinscripcionController extends Controller
         $data = $request->validate([
             'periodo_id'       => ['required', 'exists:periodos,id'],
             'carrera_id'       => ['required', 'exists:carreras,id'],
-            'semestre'         => ['required', 'integer', 'min:1', 'max:9'],
+            'semestre'         => ['required', 'integer', 'min:1', 'max:8'],
             'turno'            => ['required', 'in:matutino,vespertino,mixto,todos'],
             'fecha_hora_inicio'=> ['required', 'date'],
             'fecha_hora_fin'   => ['required', 'date', 'after:fecha_hora_inicio'],
