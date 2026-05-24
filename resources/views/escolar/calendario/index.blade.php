@@ -129,7 +129,7 @@
                 <div>
                     <label class="form-label">Semestre <span class="text-danger">*</span></label>
                     <select name="semestre" class="form-select" required>
-                        @for($i = 2; $i <= 9; $i++)
+                        @for($i = 1; $i <= 8; $i++)
                         <option value="{{ $i }}">{{ $i }}°</option>
                         @endfor
                     </select>

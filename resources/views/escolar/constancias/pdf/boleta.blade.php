@@ -38,7 +38,7 @@
 
 <div class="header">
   <h1>Tecnológico Nacional de México</h1>
-  <h2>{{ config('app.name') }} · Servicios Escolares</h2>
+  <h2>{{ config('app.edusige.campus') }} · Departamento de Servicios Escolares</h2>
 </div>
 
 <div class="doc-title">
@@ -115,8 +115,8 @@
     <td width="50%">
       <div class="firma-block">
         <div class="line">
-          <strong>Jefe de Servicios Escolares</strong><br>
-          Tecnológico Nacional de México
+          <strong>Jefe del Depto. de Servicios Escolares</strong><br>
+          {{ config('app.edusige.campus') }}
         </div>
       </div>
     </td>
@@ -130,7 +130,7 @@
 </div>
 
 <div class="page-footer">
-  Este documento es generado electrónicamente por {{ config('app.name') }}. Cualquier alteración lo invalida.
+  Documento generado electrónicamente por {{ config('app.edusige.campus') }}. Cualquier alteración lo invalida.
 </div>
 
 </body>

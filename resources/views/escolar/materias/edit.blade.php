@@ -41,7 +41,7 @@
                     <label class="form-label">Semestre sugerido</label>
                     <select name="semestre_sugerido" class="form-select">
                         <option value="">— Sin asignar —</option>
-                        @for($i = 1; $i <= 9; $i++)
+                        @for($i = 1; $i <= 8; $i++)
                         <option value="{{ $i }}" {{ old('semestre_sugerido', $materia->semestre_sugerido) == $i ? 'selected' : '' }}>
                             Semestre {{ $i }}
                         </option>

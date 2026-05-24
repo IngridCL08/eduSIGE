@@ -19,14 +19,14 @@ class UserSeeder extends Seeder
                 'role'   => 'admin',
             ],
             [
-                'name'   => 'Recursos Financieros',
+                'name'   => 'Depto. Recursos Financieros',
                 'email'  => 'financiero@edusige.com',
                 'password' => Hash::make('Financiero2024!'),
                 'activo' => true,
                 'role'   => 'financiero',
             ],
             [
-                'name'   => 'Control Escolar',
+                'name'   => 'Depto. Servicios Escolares',
                 'email'  => 'escolar@edusige.com',
                 'password' => Hash::make('Escolar2024!'),
                 'activo' => true,

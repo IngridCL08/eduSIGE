@@ -23,7 +23,7 @@
                 <div>
                     <label class="form-label">Nombre del período <span class="text-danger">*</span></label>
                     <input type="text" name="nombre" value="{{ old('nombre') }}"
-                           class="form-input" placeholder="Ej. 2026-A Enero-Junio" required>
+                           class="form-input" placeholder="Ej. 2026-B Agosto-Diciembre" required>
                     @error('nombre')<p class="form-error">{{ $message }}</p>@enderror
                 </div>
                 <div>

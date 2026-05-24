@@ -52,7 +52,7 @@
 @endforelse
 
 <p class="text-xs text-slate-400 mt-4">
-    Para aclarar adeudos o registrar pagos, acude a la ventanilla de Recursos Financieros.
+    Para aclarar adeudos o registrar pagos, acude al Departamento de Recursos Financieros.
 </p>
 
 @endsection
