@@ -6,8 +6,12 @@ use App\Http\Controllers\Escolar\AlumnoController;
 use App\Http\Controllers\Escolar\DocumentoController;
 use App\Http\Controllers\Escolar\EstadisticaController;
 use App\Http\Controllers\Escolar\ExamenAdmisionController;
-use App\Http\Controllers\Escolar\ComprobanteController;
 use App\Http\Controllers\Escolar\InscripcionController;
+use App\Http\Controllers\Escolar\PeriodoController;
+use App\Http\Controllers\Escolar\MateriaController;
+use App\Http\Controllers\Escolar\AdeudoController;
+use App\Http\Controllers\Escolar\CalendarioReinscripcionController;
+use App\Http\Controllers\Escolar\ConstanciaController;
 use Illuminate\Support\Facades\Route;
 
 // Dashboard escolar
@@ -50,17 +54,44 @@ Route::prefix('examenes')->name('examenes.')->group(function () {
     Route::put('/{examen}',                      [ExamenAdmisionController::class, 'update'])->name('update');
 });
 
-// Comprobantes de transferencia
-Route::prefix('comprobantes')->name('comprobantes.')->group(function () {
-    Route::get('/',                              [ComprobanteController::class, 'index'])->name('index');
-    Route::patch('/{comprobante}/aprobar',       [ComprobanteController::class, 'aprobar'])->name('aprobar');
-    Route::patch('/{comprobante}/rechazar',      [ComprobanteController::class, 'rechazar'])->name('rechazar');
-});
-
 // Inscripción de aspirantes admitidos
 Route::prefix('inscripcion')->name('inscripcion.')->group(function () {
     Route::get('/',                              [InscripcionController::class, 'index'])->name('index');
     Route::post('/{aspirante}',                  [InscripcionController::class, 'inscribir'])->name('store');
+});
+
+// Períodos escolares
+Route::resource('periodos', PeriodoController::class);
+Route::patch('periodos/{periodo}/activar',       [PeriodoController::class, 'activar'])->name('periodos.activar');
+Route::patch('periodos/{periodo}/cerrar',        [PeriodoController::class, 'cerrar'])->name('periodos.cerrar');
+Route::patch('periodos/{periodo}/semana',        [PeriodoController::class, 'avanzarSemana'])->name('periodos.semana');
+Route::patch('periodos/{periodo}/calificaciones',[PeriodoController::class, 'toggleCalificaciones'])->name('periodos.calificaciones');
+
+// Catálogo de materias
+Route::resource('materias', MateriaController::class);
+Route::post('materias/{materia}/plan',              [MateriaController::class, 'planStore'])->name('materias.plan.store');
+Route::delete('plan-estudios/{plan}',               [MateriaController::class, 'planDestroy'])->name('materias.plan.destroy');
+Route::get('carreras/{carrera}/plan',               [MateriaController::class, 'planIndex'])->name('materias.plan.index');
+
+// Adeudos
+Route::resource('adeudos', AdeudoController::class)->except(['edit', 'update']);
+Route::patch('adeudos/{adeudo}/liquidar',           [AdeudoController::class, 'liquidar'])->name('adeudos.liquidar');
+
+// Calendario de reinscripción
+Route::prefix('calendario')->name('calendario.')->group(function () {
+    Route::get('/',                                     [CalendarioReinscripcionController::class, 'index'])->name('index');
+    Route::post('/',                                    [CalendarioReinscripcionController::class, 'store'])->name('store');
+    Route::put('/{calendario}',                         [CalendarioReinscripcionController::class, 'update'])->name('update');
+    Route::patch('/{calendario}/toggle',                [CalendarioReinscripcionController::class, 'toggle'])->name('toggle');
+    Route::delete('/{calendario}',                      [CalendarioReinscripcionController::class, 'destroy'])->name('destroy');
+});
+
+// Constancias y documentos PDF
+Route::prefix('constancias')->name('constancias.')->group(function () {
+    Route::get('/',                                    [ConstanciaController::class, 'index'])->name('index');
+    Route::get('/{alumno}/estudios',                   [ConstanciaController::class, 'estudios'])->name('estudios');
+    Route::get('/{alumno}/kardex',                     [ConstanciaController::class, 'kardex'])->name('kardex');
+    Route::get('/{alumno}/boleta/{periodo}',           [ConstanciaController::class, 'boleta'])->name('boleta');
 });
 
 // Estadísticas escolares

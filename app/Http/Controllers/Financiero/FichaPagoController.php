@@ -53,7 +53,7 @@ class FichaPagoController extends Controller
 
     public function show(FichaPago $ficha)
     {
-        $ficha->load(['aspirante.carrera', 'aspirante.periodo', 'transacciones', 'generadoPor']);
+        $ficha->load(['aspirante.carrera', 'aspirante.periodo', 'transacciones', 'generadoPor', 'comprobantes.revisadoPor']);
         return view('financiero.fichas.show', compact('ficha'));
     }
 

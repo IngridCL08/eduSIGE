@@ -54,14 +54,14 @@ class ExamenAdmisionController extends Controller
 
         ExamenAdmision::create($data);
 
-        // Actualizar status del aspirante
-        if ($data['resultado']) {
-            $nuevoStatus = $data['resultado'] === 'aprobado'
-                ? Aspirante::STATUS_EXAMEN_APLICADO
-                : Aspirante::STATUS_EXAMEN_APLICADO;
-
-            $aspirante->update(['status' => $nuevoStatus]);
-        }
+        // Actualizar status del aspirante según resultado
+        $nuevoStatus = match ($data['resultado'] ?? null) {
+            'aprobado'     => Aspirante::STATUS_ADMITIDO,
+            'reprobado'    => Aspirante::STATUS_NO_ADMITIDO,
+            'lista_espera' => Aspirante::STATUS_EXAMEN_APLICADO,
+            default        => Aspirante::STATUS_EXAMEN_APLICADO,
+        };
+        $aspirante->update(['status' => $nuevoStatus]);
 
         Bitacora::registrar(
             'examen_registrado',

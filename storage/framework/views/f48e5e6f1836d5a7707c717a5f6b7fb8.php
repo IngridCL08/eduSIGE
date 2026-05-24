@@ -8,16 +8,50 @@
 
 <?php $__env->startSection('header-actions'); ?>
     <a href="<?php echo e(route('escolar.aspirantes.edit', $aspirante)); ?>" class="btn-secondary btn-sm">Editar</a>
-    <?php if($aspirante->status === 'ficha_pagada'): ?>
-    <form method="POST" action="<?php echo e(route('escolar.alumnos.store')); ?>">
+    <?php if($aspirante->status === \App\Models\Aspirante::STATUS_ADMITIDO && ! $aspirante->alumno): ?>
+    <form method="POST" action="<?php echo e(route('escolar.inscripcion.store', $aspirante)); ?>"
+          onsubmit="return confirm('¿Inscribir a <?php echo e($aspirante->nombre_completo); ?>? Se generará su matrícula y contraseña.')">
         <?php echo csrf_field(); ?>
-        <input type="hidden" name="aspirante_id" value="<?php echo e($aspirante->id); ?>">
-        <button class="btn-primary btn-sm">Convertir a Alumno</button>
+        <button class="btn-success btn-sm">Inscribir como Alumno</button>
     </form>
     <?php endif; ?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
+
+
+<?php if(session('password_inicial')): ?>
+<div class="bg-green-50 border border-green-300 rounded-xl p-5 mb-6">
+    <p class="font-semibold text-green-800 mb-2">✓ Aspirante registrado — Credenciales de acceso al portal</p>
+    <div class="bg-white rounded-lg border border-green-200 p-4 font-mono text-sm space-y-1">
+        <p><span class="text-slate-500">Folio:</span>
+           <span class="font-bold text-slate-900"><?php echo e($aspirante->folio); ?></span></p>
+        <p><span class="text-slate-500">Email:</span>
+           <span class="font-bold text-slate-900"><?php echo e($aspirante->email); ?></span></p>
+        <p><span class="text-slate-500">Contraseña inicial:</span>
+           <span class="font-bold text-slate-900"><?php echo e(session('password_inicial')); ?></span></p>
+    </div>
+    <p class="text-xs text-green-600 mt-2">⚠ Anota estas credenciales. No se volverán a mostrar.</p>
+</div>
+<?php endif; ?>
+
+
+<?php if(session('inscripcion_exitosa')): ?>
+<?php $datos = session('inscripcion_exitosa'); ?>
+<div class="bg-blue-50 border border-blue-300 rounded-xl p-5 mb-6">
+    <p class="font-semibold text-blue-800 mb-2">✓ Inscripción completada — Credenciales del Portal Alumno</p>
+    <div class="bg-white rounded-lg border border-blue-200 p-4 font-mono text-sm space-y-1">
+        <p><span class="text-slate-500">Nombre:</span>
+           <span class="font-bold text-slate-900"><?php echo e($datos['nombre']); ?></span></p>
+        <p><span class="text-slate-500">Matrícula:</span>
+           <span class="font-bold text-slate-900"><?php echo e($datos['matricula']); ?></span></p>
+        <p><span class="text-slate-500">Contraseña inicial:</span>
+           <span class="font-bold text-slate-900"><?php echo e($datos['password']); ?></span></p>
+    </div>
+    <p class="text-xs text-blue-600 mt-2">⚠ Anota estas credenciales. No se volverán a mostrar.</p>
+</div>
+<?php endif; ?>
+
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
     
@@ -39,7 +73,7 @@
                     ['Email',         $aspirante->email],
                     ['Teléfono',      $aspirante->telefono ?? '—'],
                     ['Domicilio',     $aspirante->domicilio ?? '—'],
-                    ['Institución',   $aspirante->institucion_procedencia ?? '—'],
+                    ['Bachillerato',  $aspirante->bachillerato ?? '—'],
                     ['Promedio Bach.',($aspirante->promedio_bachillerato ? number_format($aspirante->promedio_bachillerato,2) : '—')],
                 ]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as [$label, $val]): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div>

@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add *)",
+      "Bash(git commit -m 'feat: redesign login with split layout and update brand color to #5b35c0 *)",
+      "Bash(git push *)"
+    ]
+  }
+}

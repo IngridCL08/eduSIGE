@@ -22,9 +22,9 @@
     <aside class="sidebar scrollbar-thin" :class="open ? 'translate-x-0' : '-translate-x-full'">
 
         {{-- Logo / Institución --}}
-        <div class="flex items-center gap-3 px-5 py-5 border-b border-navy-800">
-            <div class="w-9 h-9 bg-navy-800 rounded-lg flex items-center justify-center flex-shrink-0">
-                <svg class="w-5 h-5 text-navy-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="flex items-center gap-3 px-5 py-5 border-b border-white/10">
+            <div class="w-9 h-9 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                           d="M12 14l9-5-9-5-9 5 9 5z"/>
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -32,8 +32,8 @@
                 </svg>
             </div>
             <div class="min-w-0">
-                <p class="text-white font-bold text-sm leading-tight truncate">eduSIGE</p>
-                <p class="text-slate-400 text-xs truncate">{{ config('app.edusige.institucion') }}</p>
+                <p class="text-white font-bold text-sm leading-tight truncate">{{ config('app.name', 'eduSIGE') }}</p>
+                <p class="text-white/50 text-xs truncate">{{ config('app.edusige.institucion') }}</p>
             </div>
         </div>
 
@@ -43,9 +43,9 @@
         </nav>
 
         {{-- Usuario actual --}}
-        <div class="border-t border-navy-800 p-4" x-data="dropdown()">
+        <div class="border-t border-white/10 p-4" x-data="dropdown()">
             <button @click="toggle()" class="w-full flex items-center gap-3 text-left group">
-                <div class="w-8 h-8 bg-navy-800 rounded-full flex items-center justify-center flex-shrink-0">
+                <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
                     <span class="text-xs font-semibold text-white">
                         {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}
                     </span>
@@ -63,8 +63,8 @@
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit"
-                            class="w-full flex items-center gap-2 px-3 py-2 text-sm text-red-400
-                                   hover:bg-navy-800 rounded-lg transition-colors">
+                            class="w-full flex items-center gap-2 px-3 py-2 text-sm text-red-300
+                                   hover:bg-white/15 rounded-lg transition-colors">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                   d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
@@ -80,12 +80,13 @@
     <div class="transition-all duration-300" :class="open ? 'lg:pl-64' : 'pl-0'">
 
         {{-- Topbar --}}
-        <header class="sticky top-0 z-40 bg-white border-b border-carbon-200 shadow-sm">
+        <header class="sticky top-0 z-40 shadow-sm border-b border-white/10"
+                style="background: linear-gradient(135deg, #1a0960 0%, #2d1590 60%, #4219bf 100%)">
             <div class="flex items-center gap-4 px-6 h-14">
 
                 {{-- Toggle sidebar --}}
                 <button @click="toggle()"
-                        class="p-1.5 rounded-lg text-carbon-500 hover:bg-carbon-100 transition-colors">
+                        class="p-1.5 rounded-lg text-white/70 hover:bg-white/15 hover:text-white transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                               d="M4 6h16M4 12h16M4 18h16"/>
@@ -93,7 +94,9 @@
                 </button>
 
                 {{-- Breadcrumb --}}
-                <div class="flex-1">
+                <div class="flex-1 [&_.breadcrumb]:text-white/60 [&_.breadcrumb_a]:text-white/80
+                            [&_.breadcrumb_a:hover]:text-white [&_.breadcrumb-separator]:text-white/30
+                            [&_.text-carbon-700]:text-white">
                     @hasSection('breadcrumb')
                         <nav class="breadcrumb">
                             @yield('breadcrumb')
