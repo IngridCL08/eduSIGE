@@ -6,6 +6,7 @@ use App\Http\Controllers\Financiero\AspiranteFinancieroController;
 use App\Http\Controllers\Financiero\ReporteController;
 use App\Http\Controllers\Financiero\PasarelaController;
 use App\Http\Controllers\Financiero\ComprobanteController;
+use App\Http\Controllers\Financiero\PagoAlumnoController;
 use Illuminate\Support\Facades\Route;
 
 // Dashboard financiero
@@ -33,6 +34,13 @@ Route::prefix('comprobantes')->name('comprobantes.')->group(function () {
     Route::get('/',                         [ComprobanteController::class, 'index'])->name('index');
     Route::patch('/{comprobante}/aprobar',  [ComprobanteController::class, 'aprobar'])->name('aprobar');
     Route::patch('/{comprobante}/rechazar', [ComprobanteController::class, 'rechazar'])->name('rechazar');
+});
+
+// Pagos de alumnos (adeudos)
+Route::prefix('pagos')->name('pagos.')->group(function () {
+    Route::get('/',                       [PagoAlumnoController::class, 'index'])->name('index');
+    Route::patch('/{adeudo}/validar',     [PagoAlumnoController::class, 'validar'])->name('validar');
+    Route::patch('/{adeudo}/rechazar',    [PagoAlumnoController::class, 'rechazar'])->name('rechazar');
 });
 
 // Reportes

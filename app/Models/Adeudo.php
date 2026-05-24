@@ -10,6 +10,7 @@ class Adeudo extends Model
     protected $fillable = [
         'alumno_id', 'periodo_id', 'tipo', 'concepto', 'descripcion', 'monto',
         'fecha_vencimiento', 'status', 'fecha_pago', 'referencia_pago', 'registrado_por_nombre',
+        'validado_por_id', 'metodo_pago', 'comprobante_path',
     ];
 
     protected function casts(): array
@@ -33,6 +34,11 @@ class Adeudo extends Model
     public function periodo(): BelongsTo
     {
         return $this->belongsTo(Periodo::class);
+    }
+
+    public function validadoPor(): BelongsTo
+    {
+        return $this->belongsTo(\App\Models\User::class, 'validado_por_id');
     }
 
     public function getMontoFormateadoAttribute(): string

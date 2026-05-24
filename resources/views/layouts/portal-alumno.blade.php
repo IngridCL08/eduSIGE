@@ -43,6 +43,7 @@
                     ['route' => 'portal.alumno.dashboard',   'label' => 'Inicio'],
                     ['route' => 'portal.alumno.historial',   'label' => 'Historial Académico'],
                     ['route' => 'portal.alumno.adeudos',     'label' => 'Mis Adeudos'],
+                    ['route' => 'portal.alumno.pagos',       'label' => 'Mis Pagos'],
                     ['route' => 'portal.alumno.documentos',  'label' => 'Mis Documentos'],
                     ['route' => 'portal.alumno.perfil',      'label' => 'Mi Perfil'],
                 ];
