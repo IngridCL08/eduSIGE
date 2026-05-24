@@ -123,26 +123,6 @@
             </div>
         </div>
 
-        
-        <div class="card" x-data>
-            <div class="card-header"><h3 class="card-title">Pago en Línea</h3></div>
-            <div class="grid grid-cols-2 gap-3">
-                <form method="POST" action="<?php echo e(route('financiero.pago.iniciar', $ficha)); ?>">
-                    <?php echo csrf_field(); ?>
-                    <input type="hidden" name="gateway" value="conekta">
-                    <button class="btn-primary w-full justify-center">
-                        Pagar con Conekta
-                    </button>
-                </form>
-                <form method="POST" action="<?php echo e(route('financiero.pago.iniciar', $ficha)); ?>">
-                    <?php echo csrf_field(); ?>
-                    <input type="hidden" name="gateway" value="paypal">
-                    <button class="btn-outline w-full justify-center">
-                        Pagar con PayPal
-                    </button>
-                </form>
-            </div>
-        </div>
         <?php endif; ?>
 
         
@@ -152,6 +132,79 @@
                 <?php echo csrf_field(); ?> <?php echo method_field('PATCH'); ?>
                 <button class="btn-danger btn-sm">Cancelar Ficha</button>
             </form>
+        </div>
+        <?php endif; ?>
+
+        
+        <?php if($ficha->comprobantes->isNotEmpty()): ?>
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Comprobantes de Transferencia</h3>
+                <span class="badge badge-info"><?php echo e($ficha->comprobantes->where('status', 'pendiente')->count()); ?> pendiente(s)</span>
+            </div>
+            <div class="space-y-3">
+                <?php $__currentLoopData = $ficha->comprobantes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $comp): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <div class="flex items-start justify-between p-3 rounded-lg border border-carbon-100 bg-carbon-50">
+                    <div class="flex-1 min-w-0 mr-4">
+                        <a href="<?php echo e($comp->url); ?>" target="_blank"
+                           class="text-sm font-medium hover:underline truncate block"
+                           style="color: #5b35c0">
+                            <?php echo e($comp->nombre_original ?? 'Ver comprobante'); ?>
+
+                        </a>
+                        <p class="text-xs text-carbon-400 mt-0.5">
+                            Enviado el <?php echo e($comp->created_at->format('d/m/Y H:i')); ?>
+
+                        </p>
+                        <?php if($comp->observaciones && $comp->status === 'rechazado'): ?>
+                        <p class="text-xs text-red-500 mt-1">Motivo: <?php echo e($comp->observaciones); ?></p>
+                        <?php endif; ?>
+                    </div>
+                    <div class="flex items-center gap-2 flex-shrink-0">
+                        <span class="badge <?php echo e($comp->status_color); ?>"><?php echo e($comp->status_nombre); ?></span>
+                        <?php if($comp->status === 'pendiente'): ?>
+                        <div x-data="{ open: false }">
+                            <div class="flex gap-1">
+                                <form method="POST" action="<?php echo e(route('financiero.comprobantes.aprobar', $comp)); ?>">
+                                    <?php echo csrf_field(); ?> <?php echo method_field('PATCH'); ?>
+                                    <button class="btn-success btn-sm"
+                                            onclick="return confirm('¿Aprobar y marcar ficha como pagada?')">
+                                        Aprobar
+                                    </button>
+                                </form>
+                                <button @click="open = !open" class="btn-danger btn-sm">Rechazar</button>
+                            </div>
+
+                            <div x-show="open" x-cloak
+                                 class="fixed inset-0 bg-black/40 flex items-center justify-center z-50"
+                                 @keydown.escape.window="open = false">
+                                <div class="bg-white rounded-xl p-6 w-full max-w-md shadow-xl" @click.stop>
+                                    <h3 class="font-semibold text-carbon-900 mb-3">Rechazar comprobante</h3>
+                                    <form method="POST"
+                                          action="<?php echo e(route('financiero.comprobantes.rechazar', $comp)); ?>">
+                                        <?php echo csrf_field(); ?> <?php echo method_field('PATCH'); ?>
+                                        <div class="mb-4">
+                                            <label class="form-label">
+                                                Motivo <span class="text-danger">*</span>
+                                            </label>
+                                            <textarea name="observaciones" rows="3" class="form-input"
+                                                      placeholder="Motivo para el aspirante…" required></textarea>
+                                        </div>
+                                        <div class="flex justify-end gap-2">
+                                            <button type="button" @click="open = false" class="btn-secondary btn-sm">
+                                                Cancelar
+                                            </button>
+                                            <button type="submit" class="btn-danger btn-sm">Confirmar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </div>
         </div>
         <?php endif; ?>
 
